@@ -1,0 +1,7 @@
+*.vim
+*.bak
+*.toc
+*.aux
+*.log
+*.pdf
+*.swp

@@ -1,0 +1,38 @@
+\documentclass[a4paper,12pt, twoside]{article}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[toc,page]{appendix}
+\usepackage{float}
+\restylefloat{table}
+
+\title{
+    \[Document Title\]
+    \vspace{5mm}
+}
+
+\author{Ben Marshall}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\[Document Abstract\]
+\end{abstract}
+
+\section{Introduction}
+
+Lorem ipsum doler set amet.
+
+% -------------------- BIBLIOGRAPHY -------------------------------------------
+\newpage
+\nocite{*} % Show all Bib-entries
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
+
