@@ -17,11 +17,13 @@ changes:
 	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
 	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
 
+check: spell diction wordcount
+
 spell:
-	spell -dbritish-huge report.tex
+	ispell -dbritish-huge document.tex
 
 diction:
 	diction -s document.tex
 
 wordcount:
-	detex document.tex | wc -w
+	echo "Word Count: `detex document.tex | wc -w`"
