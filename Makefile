@@ -10,14 +10,17 @@ document:
 	bibtex   document.aux >> build.log
 	pdflatex document.tex >> build.log
 
-changes:
+diff:
 	latexdiff-git --math-markup=0 --force -r draft-4 thesis.tex
 	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
 	\bibtex                 "thesis-diffdraft-4.aux"
 	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
 	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
 
-check: spell diction wordcount
+check: spell diction considerate wordcount 
+
+considerate:
+	alex document.tex
 
 spell:
 	ispell -dbritish-huge document.tex
