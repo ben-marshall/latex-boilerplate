@@ -18,7 +18,10 @@ changes:
 	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
 
 spell:
-	ispell -dbritish-huge report.tex
+	spell -dbritish-huge report.tex
+
+diction:
+	diction -s document.tex
 
 wordcount:
 	detex document.tex | wc -w
