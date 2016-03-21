@@ -37,4 +37,4 @@ diction:
 	diction -s $(DOCUMENT).tex
 
 wordcount:
-	echo "Word Count: `detex $(DOCUMENT).tex | wc -w`"
+	@echo "Word Count: `detex $(DOCUMENT).tex | wc -w`"
