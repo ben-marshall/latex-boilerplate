@@ -4,17 +4,19 @@ DOCUMENT = document
 DIFFSOURCE = thesis
 # Diff result document
 DIFFRESULT = thesis-diffdraft-4
+# Build log variable
+LOG = build.log
 
 .PHONY: clean document check considerate spell diction wordcount
 
 all: document
 
 document:
-	pdflatex $(DOCUMENT).tex  > build.log
-	bibtex   $(DOCUMENT).aux >> build.log
-	bibtex   $(DOCUMENT).aux >> build.log
-	pdflatex $(DOCUMENT).tex >> build.log
-	pdflatex $(DOCUMENT).tex >> build.log
+	pdflatex $(DOCUMENT).tex  > $(LOG)
+	bibtex   $(DOCUMENT).aux >> $(LOG)
+	bibtex   $(DOCUMENT).aux >> $(LOG)
+	pdflatex $(DOCUMENT).tex >> $(LOG)
+	pdflatex $(DOCUMENT).tex >> $(LOG)
 
 diff:
 	latexdiff-git --math-markup=0 --force -r draft-4 $(DIFFSOURCE).tex
