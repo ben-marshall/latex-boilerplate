@@ -1,32 +1,38 @@
+# Main document
+DOCUMENT = document
+# Diff source document
+DIFFSOURCE = thesis
+# Diff result document
+DIFFRESULT = thesis-diffdraft-4
 
-all: document 
+.PHONY: clean document check considerate spell diction wordcount
 
-.PHONY: clean document
+all: document
 
 document:
-	pdflatex document.tex  > build.log
-	bibtex   document.aux >> build.log
-	pdflatex document.tex >> build.log
-	bibtex   document.aux >> build.log
-	pdflatex document.tex >> build.log
+	pdflatex $(DOCUMENT).tex  > build.log
+	bibtex   $(DOCUMENT).aux >> build.log
+	bibtex   $(DOCUMENT).aux >> build.log
+	pdflatex $(DOCUMENT).tex >> build.log
+	pdflatex $(DOCUMENT).tex >> build.log
 
 diff:
-	latexdiff-git --math-markup=0 --force -r draft-4 thesis.tex
-	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
-	\bibtex                 "thesis-diffdraft-4.aux"
-	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
-	\pdflatex -shell-escape "thesis-diffdraft-4.tex" 
+	latexdiff-git --math-markup=0 --force -r draft-4 $(DIFFSOURCE).tex
+	\pdflatex -shell-escape "$(DIFFRESULT).tex"
+	\bibtex                 "$(DIFFRESULT).aux"
+	\pdflatex -shell-escape "$(DIFFRESULT).tex"
+	\pdflatex -shell-escape "$(DIFFRESULT).tex"
 
 check: spell diction considerate wordcount 
 
 considerate:
-	alex document.tex
+	alex $(DOCUMENT).tex
 
 spell:
-	ispell -dbritish-huge document.tex
+	ispell -dbritish-huge $(DOCUMENT).tex
 
 diction:
-	diction -s document.tex
+	diction -s $(DOCUMENT).tex
 
 wordcount:
-	echo "Word Count: `detex document.tex | wc -w`"
+	echo "Word Count: `detex $(DOCUMENT).tex | wc -w`"
