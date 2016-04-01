@@ -27,12 +27,10 @@ document:
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
 
+
 diff:
-	latexdiff-git --math-markup=0 --force -r draft-4 $(DIFFSOURCE).tex
-	\pdflatex -shell-escape "$(DIFFRESULT).tex"
-	\bibtex                 "$(DIFFRESULT).aux"
-	\pdflatex -shell-escape "$(DIFFRESULT).tex"
-	\pdflatex -shell-escape "$(DIFFRESULT).tex"
+	@echo "Usage: make diff base=<commit / tag>"
+	git latexdiff -b --main $(DOCUMENT).tex --latexpand $(DOCUMENT).tex $(base) HEAD
 
 check: spell diction considerate wordcount 
 
