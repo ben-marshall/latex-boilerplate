@@ -1,31 +1,21 @@
 # Main document
 DOCUMENT = document
 
-# Diff source document
-DIFFSOURCE = thesis
-
-# Diff result document
-DIFFRESULT = thesis-diffdraft-4
-
 # Build log variable
 LOG = build.log
 
-# Output directory
-OUTPUT = build
+.PHONY: clean document check considerate spell diction wordcount publish
 
-.PHONY: clean document check considerate spell diction wordcount
+all: document
 
-$(OUTPUT):
-	mkdir -p $(OUTPUT)
-
-all: $(OUTPUT) document
+publish: check document
 
 document:
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex  > $(OUTPUT)/$(LOG)
-	bibtex   $(OUTPUT)/$(DOCUMENT).aux >> $(OUTPUT)/$(LOG)
-	bibtex   $(OUTPUT)/$(DOCUMENT).aux >> $(OUTPUT)/$(LOG)
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
+	bibtex   $(OUTPUT)/$(DOCUMENT).aux
+	bibtex   $(OUTPUT)/$(DOCUMENT).aux
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex
 
 
 diff:
