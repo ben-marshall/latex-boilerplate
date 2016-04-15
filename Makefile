@@ -13,17 +13,20 @@ LOG = build.log
 # Output directory
 OUTPUT = build
 
+# Reference file
+REFERENCES = references.bib
+
 .PHONY: clean document check considerate spell diction wordcount
+
+all: $(OUTPUT) document
 
 $(OUTPUT):
 	mkdir -p $(OUTPUT)
 
-all: $(OUTPUT) document
-
 document:
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex  > $(OUTPUT)/$(LOG)
-	bibtex   $(OUTPUT)/$(DOCUMENT).aux >> $(OUTPUT)/$(LOG)
-	bibtex   $(OUTPUT)/$(DOCUMENT).aux >> $(OUTPUT)/$(LOG)
+	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux >> $(LOG))
+	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux >> $(LOG))
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
 
@@ -47,3 +50,6 @@ diction:
 
 wordcount:
 	@echo "Word Count: `detex $(DOCUMENT).tex | wc -w`"
+
+clean:
+	rm -rf $(OUTPUT)/*
