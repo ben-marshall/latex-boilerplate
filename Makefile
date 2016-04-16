@@ -1,11 +1,7 @@
 # Main document
 DOCUMENT = document
 
-# Diff source document
-DIFFSOURCE = thesis
-
-# Diff result document
-DIFFRESULT = thesis-diffdraft-4
+OUTPUT = .
 
 # Build log variable
 LOG = build.log
@@ -16,12 +12,14 @@ OUTPUT = build
 # Reference file
 REFERENCES = references.bib
 
-.PHONY: clean document check considerate spell diction wordcount
+.PHONY: clean document check considerate spell diction wordcount publish
 
 all: $(OUTPUT) document
 
 $(OUTPUT):
 	mkdir -p $(OUTPUT)
+
+publish: check document
 
 document:
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex  > $(OUTPUT)/$(LOG)
@@ -31,11 +29,8 @@ document:
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
 
 diff:
-	latexdiff-git --math-markup=0 --force -r draft-4 $(DIFFSOURCE).tex
-	\pdflatex -shell-escape "$(DIFFRESULT).tex"
-	\bibtex                 "$(DIFFRESULT).aux"
-	\pdflatex -shell-escape "$(DIFFRESULT).tex"
-	\pdflatex -shell-escape "$(DIFFRESULT).tex"
+	@echo "Usage: make diff base=<commit / tag>"
+	git latexdiff -b --main $(DOCUMENT).tex --latexpand $(DOCUMENT).tex $(base) HEAD
 
 check: spell diction considerate wordcount 
 
