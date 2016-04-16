@@ -1,8 +1,6 @@
 # Main document
 DOCUMENT = document
 
-OUTPUT = .
-
 # Build log variable
 LOG = build.log
 
