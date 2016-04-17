@@ -1,24 +1,30 @@
 # Main document
 DOCUMENT = document
 
-OUTPUT = .
-
 # Build log variable
 LOG = build.log
 
+# Output directory
+OUTPUT = build
+
+# Reference file
+REFERENCES = references.bib
+
 .PHONY: clean document check considerate spell diction wordcount publish
 
-all: document
+all: $(OUTPUT) document
+
+$(OUTPUT):
+	mkdir -p $(OUTPUT)
 
 publish: check document
 
 document:
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
-	bibtex   $(OUTPUT)/$(DOCUMENT).aux
-	bibtex   $(OUTPUT)/$(DOCUMENT).aux
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex
-
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex  > $(OUTPUT)/$(LOG)
+	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux >> $(LOG))
+	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux >> $(LOG))
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
 
 diff:
 	@echo "Usage: make diff base=<commit / tag>"
@@ -37,3 +43,6 @@ diction:
 
 wordcount:
 	@echo "Word Count: `detex $(DOCUMENT).tex | wc -w`"
+
+clean:
+	rm -rf $(OUTPUT)/*
