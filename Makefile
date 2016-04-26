@@ -1,9 +1,6 @@
 # Main document
 DOCUMENT = document
 
-# Build log variable
-LOG = build.log
-
 # Output directory
 OUTPUT = build
 
@@ -20,11 +17,11 @@ $(OUTPUT):
 publish: check document
 
 document:
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex  > $(OUTPUT)/$(LOG)
-	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux >> $(LOG))
-	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux >> $(LOG))
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
-	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex >> $(OUTPUT)/$(LOG)
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
+	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux
+	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
+	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
 
 diff:
 	@echo "Usage: make diff base=<commit / tag>"
