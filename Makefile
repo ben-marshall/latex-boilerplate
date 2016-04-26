@@ -2,7 +2,7 @@
 DOCUMENT = document
 
 # Output directory
-OUTPUT = build
+OUTPUT = ./
 
 # Reference file
 REFERENCES = references.bib
