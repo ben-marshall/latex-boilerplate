@@ -3,6 +3,8 @@
 \usepackage[margin=2cm]{geometry}
 \usepackage{mathtools}
 \usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[toc,page]{appendix}
@@ -10,16 +12,40 @@
 \usepackage{listings}
 \restylefloat{table}
 
+
+% Stop weird gaps and one-liners when big figures are on consecutive pages.
+\widowpenalty 10000
+\clubpenalty 10000
+
+%
+% Creates a highlighted section of text in italics.
+\newcommand\todo[1]{\textcolor{red}{(\textbf{Todo:} {\em #1)}}}
+\newcommand\question[1]{\textcolor{OliveGreen}{(\textbf{Q:} {\em #1)}}}
+\newcommand\suggest[1]{\textcolor{BurntOrange}{(\textbf{Suggest:} {\em #1)}}}
+
+%
+% Inserts a blank page that does not contribute to the page counter.
+\newcommand\blankpage{%
+   \null
+   \thispagestyle{empty}%
+   \addtocounter{page}{-1}%
+   \newpage}
+
+%
+% Document Title
 \title{
     Document Title
-    \vspace{5mm}
 }
 
-\author{Ben Marshall}
+%
+% Document Author(s)
+\author{
+    Ben Marshall
+}
 
 \begin{document}
 
-\maketitle
+\maketitle % Document title print.
 
 \begin{abstract}
 Document Abstract
@@ -27,15 +53,30 @@ Document Abstract
 
 \tableofcontents
 
+% -------------------- DOCUMENT STARTS HERE ----------------------------------- 
+
 \section{Introduction}
 
 Lorem ipsum doler set amet.
 
 % -------------------- BIBLIOGRAPHY -------------------------------------------
+
 \newpage
 \nocite{*} % Show all Bib-entries
 \bibliographystyle{plain}
 \bibliography{references}
+
+
+% -------------------- APPENDIX------------------------------------------------
+
+\newpage
+\begin{appendices}
+
+\section{Appendix section 1}
+
+Appendix
+
+\end{appendices}
 
 \end{document}
 

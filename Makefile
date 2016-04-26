@@ -18,8 +18,7 @@ publish: check document
 
 document:
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
-	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux
-	(cp $(REFERENCES) $(OUTPUT) && cd $(OUTPUT) && bibtex $(DOCUMENT).aux
+	bibtex $(DOCUMENT).aux
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
 	pdflatex -output-directory $(OUTPUT) $(DOCUMENT).tex 
 
